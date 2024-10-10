@@ -168,9 +168,9 @@ exports.createPages = async ({ graphql, actions }) => {
     })
     if (prettyName) {
       if (prettyName in dict_prettyNames) {
-        throw Error(`Pretty name ${prettyName} already exists, clash between ${dict_prettyNames[prettyName]} and ${uuid}`);
+        throw Error(`Pretty name ${prettyName} already exists, clash between ${dict_prettyNames[prettyName]} and ${slug}`);
         }
-      dict_prettyNames[prettyName] = uuid
+      dict_prettyNames[prettyName] = slug
       createPage({
           path: `/${prettyName}`,
           component: path.resolve(`./src/templates/blog-post.jsx`),
