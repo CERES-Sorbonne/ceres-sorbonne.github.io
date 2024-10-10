@@ -4,6 +4,7 @@ const fs = require('fs')
 const csv = require('csv-parser');
 const { result } = require('lodash');
 // const thesaurus = require(`./src/data/thesaurus.json`)
+const dict_prettyNames = {};
 
 // ON CREE NOUS MEME DES NODES A PARTIR D'UN CSV POUR LE TABLEAU DES OUTILS
 exports.sourceNodes = async ({ actions, createNodeId, createContentDigest }) => {
@@ -166,6 +167,10 @@ exports.createPages = async ({ graphql, actions }) => {
       },
     })
     if (prettyName) {
+      if (prettyName in dict_prettyNames) {
+        throw Error(`Pretty name ${prettyName} already exists, clash between ${dict_prettyNames[prettyName]} and ${uuid}`);
+        }
+      dict_prettyNames[prettyName] = uuid
       createPage({
           path: `/${prettyName}`,
           component: path.resolve(`./src/templates/blog-post.jsx`),
