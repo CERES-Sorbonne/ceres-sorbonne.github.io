@@ -180,6 +180,16 @@ exports.createPages = async ({ graphql, actions }) => {
               // next,
           },
       })
+      createPage({
+          path: `/${prettyName}/`.toLowerCase(),
+          component: path.resolve(`./src/templates/blog-post.jsx`),
+          context: {
+              slug: fields.slug,
+              // previous,
+              // next,
+          },
+      })
+
     }
   })
 
