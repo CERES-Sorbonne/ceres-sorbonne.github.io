@@ -20,7 +20,12 @@ let config = {
       { id: `rimane`, name: `Rimane Karam` },
       { id: `julien`, name: `Julien Bezançon` },
       { id: `victor`, name: `Victor Ecrement` },
+      { id: `fred`, name: `fred Pailler` },
+      { id: `adelie`, name: `Adélie Laruncet` },
+      { id: `marine`, name: `Marine Tiger` },
       { id: `marceau`, name: `Marceau Hernandez` },
+      { id: `emile`, name: `Émile Rebours` },
+      { id: `mateo`, name: `Matteo Zibardi` },
       { id: `gm`, name: `Gaël Lejeune & Marceau Hernandez` },
       { id: `ceres`, name: `L'équipe CERES` }
     ],
