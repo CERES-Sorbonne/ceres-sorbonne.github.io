@@ -52,6 +52,9 @@ const HomeHeader = ({ nodes }) => {
             <div className="landing-block text">
                 <h2>Centre d’expérimentation en méthodes numériques pour les recherches en Sciences Humaines et Sociales</h2>
                 <p>
+                    <a href="https://ceres.sorbonne-universite.fr/EnglishVersion">[English here]</a>
+                </p>
+                <p>
                     Le Centre d’expérimentation en méthodes numériques pour les recherches en Sciences Humaines et Sociales est une unité de service de la <a href="https://lettres.sorbonne-universite.fr/">Faculté des Lettres de Sorbonne Université</a>, créée en février 2021, dont la mission principale est d’accompagner les chercheur·ses et doctorant·es en SHS souhaitant recourir à des méthodes numériques et à des outils informatiques.
                 </p>
                 <p>
