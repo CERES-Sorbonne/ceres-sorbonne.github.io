@@ -159,7 +159,7 @@ export const Tag = ({ tagName, selectedTags, toggleTag, nav = false }) =>
 
 const LeftNav = ({ allTags, open, setOpen, selectedTags, toggleTag, search, setSearch }) => {
     return (
-        <div id="tags-panel-container" style={{ left: open ? '1rem' : '-18rem', 'paddingRight': open ? '1rem' : '0.5rem' }}>
+        <div id="tags-panel-container" style={{ left: open ? '1rem' : '-17rem', 'paddingRight': open ? '1rem' : '0.5rem' }}>
             <nav id="tags-panel">
                 <div id="title-button-container">
                     <p style={{ visibility: open ? 'visible' : 'hidden' }}>

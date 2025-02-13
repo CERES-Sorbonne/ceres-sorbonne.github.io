@@ -2,7 +2,7 @@
 
 #tags-panel-container {
     position: fixed;
-    left: -18rem;
+    left: -17rem;
     padding: 1rem 0.5rem 0rem 1rem;
     width: 20rem;
     height: calc(100vh - 1rem);
