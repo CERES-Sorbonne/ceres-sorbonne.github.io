@@ -24,12 +24,12 @@ let config = {
       { id: `emile`, name: `Émile Rebours` },
       { id: `adelie`, name: `Adélie Laruncet` },
       { id: `marine`, name: `Marine Tiger` },
-
-      { id: `fred`, name: `fred Pailler` },
+      { id: `denisa`, name: `Denisa-Florina Bumba` },
+      { id: `laurene`, name: `Laurène Cave` },
       { id: `mateo`, name: `Matteo Zibardi` },
 
+      { id: `fred`, name: `fred Pailler` },
       { id: `thomas`, name: `Thomas Bottini` },
-      { id: `gm`, name: `Gaël Lejeune & Marceau Hernandez` },
       { id: `ceres`, name: `L'équipe CERES` }
     ],
     pages: []
