@@ -13,7 +13,7 @@ function getRandomIntInclusive(min, max) {
 const BlogPost = ({ data, children }) => {
     const date = data.markdownRemark.fields.date
     const { author, title, tags, abstract, sound } = data.markdownRemark.frontmatter
-    const authorName = author ? data.site.siteMetadata.authors.find(el => el.id === author).name : ""
+    const authorName = author ? data.site.siteMetadata.authors.filter(el => author.includes(el.id)).map(el => el.name).join(' & ') : ""
     React.useEffect(() => {
       document.querySelector('body').style.setProperty('--random-rotate', `${getRandomIntInclusive(20, 340)}deg`) 
     }, []);

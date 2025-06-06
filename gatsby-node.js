@@ -239,7 +239,7 @@ exports.createSchemaCustomization = ({ actions }) => {
     type Frontmatter {
       tags: [String!]
       sound: String
-      author: String
+      author: [String!],
       title: String!
       event: Boolean,
       uuid: String!,
