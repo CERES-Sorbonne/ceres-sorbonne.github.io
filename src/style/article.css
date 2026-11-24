@@ -186,6 +186,13 @@ img {
     border-radius: var(--small-border-radius);
 }
 
+/* Astro ajoute width/height aux images Markdown : on laisse le navigateur
+   les redimensionner en gardant le ratio sous max-width / max-height. */
+#article img {
+    width: auto;
+    height: auto;
+}
+
 img:hover {
     z-index: 8 !important;
 }
