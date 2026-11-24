@@ -1,0 +1,31 @@
+---
+// Une page par dossier de contenu <N>_<gabarit>_<nom>, servie à /<nom>/
+// (remplace templates/cards.jsx et templates/longcards.jsx).
+import { render } from 'astro:content'
+import BaseLayout from '../../layouts/BaseLayout.astro'
+import CardList from '../../components/CardList.jsx'
+import { allTags, getPosts, toCard } from '../../lib/content'
+import { getSections, type Section } from '../../lib/site'
+
+export function getStaticPaths() {
+  return getSections().map((section) => ({ params: { section: section.name }, props: { section } }))
+}
+
+const { section } = Astro.props as { section: Section }
+const sectionPosts = (await getPosts()).filter((p) => p.section === section.name)
+const intro = sectionPosts.find((p) => p.isIntro)
+const posts = sectionPosts.filter((p) => !p.isIntro)
+const cards = await Promise.all(posts.map(toCard))
+const Intro = intro ? (await render(intro.entry)).Content : null
+---
+<BaseLayout title={intro?.title ?? section.label} tags={allTags(sectionPosts)} tagMode="filter">
+  <div>
+    {intro && Intro && (
+      <header id="cards-introduction">
+        <h1>{intro.title}</h1>
+        <div class="cards-introduction-text"><Intro /></div>
+      </header>
+    )}
+    <CardList client:load cards={cards} variant={section.template === 'longcards' ? 'long' : 'card'} />
+  </div>
+</BaseLayout>

@@ -1,0 +1,61 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro'
+import CardList from '../components/CardList.jsx'
+import EventCalendar from '../components/EventCalendar.jsx'
+import { allTags, getPosts, toCard } from '../lib/content'
+import Planet from '../images/ceres-dither-1000-serpentine.png'
+import LogoSorbonne from '../images/lettres-logo-white.svg'
+import LogoCeres from '../images/LOGO_CERES_SOMBRE-2.png'
+
+// Accueil : tous les articles datés, toutes sections confondues.
+const posts = (await getPosts()).filter((p) => p.date && !p.isIntro)
+const cards = await Promise.all(posts.map(toCard))
+const events = posts
+  .filter((p) => p.entry.data.event)
+  .map((p) => ({ date: p.date, title: p.title, url: p.url }))
+---
+<BaseLayout tags={allTags(posts)} tagMode="filter"
+  description="Centre d’expérimentation en méthodes numériques pour les recherches en Sciences Humaines et Sociales (Sorbonne Université)">
+  <div>
+    <header>
+      <div class="image-container">
+        <img id="landing-image" src={Planet.src} alt="" style="max-width: 100%; margin: 0" />
+        <img id="landing-logo" src={LogoCeres.src} alt="CERES" style="max-width: 100%; margin: 0" />
+        <img id="landing-sorbonne" src={LogoSorbonne.src} alt="Faculté des Lettres — Sorbonne Université"
+          style="max-width: 100%; margin: 0; height: 194px; width: 500px" />
+      </div>
+
+      <div id="landing-blocks-container">
+        <div class="landing-block text">
+          <h2>Centre d’expérimentation en méthodes numériques pour les recherches en Sciences Humaines et Sociales</h2>
+          <p>
+            <a href="https://ceres.sorbonne-universite.fr/EnglishVersion">[English here]</a>
+          </p>
+          <p>
+            Le Centre d’expérimentation en méthodes numériques pour les recherches en Sciences Humaines et Sociales est une unité de service de la <a href="https://lettres.sorbonne-universite.fr/">Faculté des Lettres de Sorbonne Université</a>, créée en février 2021, dont la mission principale est d’accompagner les chercheur·ses et doctorant·es en SHS souhaitant recourir à des méthodes numériques et à des outils informatiques.
+          </p>
+          <p>Les actions de CERES sont organisées autour de trois axes principaux :</p>
+          <ul>
+            <li> les réseaux sociaux numériques </li>
+            <li> les sources patrimoniales numérisées </li>
+            <li> le déploiement d’une infrastructure transversale de gestion des corpus et des données analytiques associées </li>
+          </ul>
+          <p>
+            CERES offre un <a href="/ateliers">accompagnement technique et méthodologique</a> dans la prise en main d’outils informatiques disponibles et œuvre au déploiement d’<a href="/projets">outils informatiques</a> utiles à la communauté des chercheur·ses de la Faculté des Lettres. L’unité de service conduit par ailleurs une réflexion sur le statut épistémologique de ces outils et méthodes dans la recherche en SHS, mettant en avant le caractère central de l’activité interprétative du·e la chercheur·se face aux outils informatiques. Plus largement, il s’agit de contribuer à l’émergence de nouvelles pratiques de recherche en SHS en milieu numérique, avec l'appui d’une <a href="/membres">équipe interdisciplinaire</a>.
+          </p>
+        </div>
+        <div class="landing-block">
+          <h3>Évènements à venir</h3>
+          <EventCalendar client:only="react" events={events} />
+        </div>
+      </div>
+    </header>
+    <h2 id="last-posts">Dernières publications</h2>
+    <CardList client:load cards={cards} scrollTo="last-posts" />
+  </div>
+</BaseLayout>
+
+<script>
+  // déploiement progressif de l'image d'accueil (anciennement setTimeout dans HomeHeader)
+  requestAnimationFrame(() => document.getElementById('landing-image')?.classList.add('full'))
+</script>
