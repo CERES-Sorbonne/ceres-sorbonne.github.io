@@ -1,0 +1,9 @@
+{
+  "name": "CERES Sorbonne Université",
+  "short_name": "CERES",
+  "start_url": "/",
+  "display": "minimal-ui",
+  "background_color": "#ffffff",
+  "theme_color": "#005dff",
+  "icons": [{ "src": "/favicon.svg", "sizes": "any", "type": "image/svg+xml" }]
+}

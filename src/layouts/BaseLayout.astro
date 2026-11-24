@@ -1,0 +1,55 @@
+---
+// Comme sous Gatsby (un seul bundle CSS pour tout le site), toutes les feuilles
+// sont chargées sur toutes les pages : certaines pages dépendent de règles
+// définies ailleurs (ex. l'accueil utilise cards.css).
+import 'bootstrap/dist/css/bootstrap.min.css'
+import '../style/general.css'
+import '../style/header.css'
+import '../style/footer.css'
+import '../style/navtag.css'
+import '../style/accueil.css'
+import '../style/cards.css'
+import '../style/long-cards.css'
+import '../style/article.css'
+import Header from '../components/Header.astro'
+import Footer from '../components/Footer.astro'
+import TagPanel from '../components/TagPanel.jsx'
+import { allTags, getPosts } from '../lib/content'
+import { SITE_TITLE } from '../lib/site'
+
+interface Props {
+  title?: string
+  description?: string
+  /** Tags proposés dans le panneau ; par défaut tous ceux du site. */
+  tags?: string[]
+  /** "filter" sur les pages de liste, "navigate" ailleurs. */
+  tagMode?: 'filter' | 'navigate'
+}
+
+const { title, description, tags, tagMode = 'navigate' } = Astro.props
+const panelTags = tags ?? allTags(await getPosts())
+const pageTitle = title ? `${title} — ${SITE_TITLE}` : SITE_TITLE
+---
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{pageTitle}</title>
+    {description && <meta name="description" content={description} />}
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="manifest" href="/manifest.webmanifest" />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+    <slot name="head" />
+  </head>
+  <body>
+    <TagPanel client:load allTags={panelTags} mode={tagMode} />
+    <div id="page-container">
+      <Header />
+      <main>
+        <slot />
+      </main>
+      <Footer />
+    </div>
+  </body>
+</html>

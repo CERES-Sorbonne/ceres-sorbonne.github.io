@@ -1,47 +1,35 @@
 {
   "name": "ceres-www",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "private": true,
-  "description": "ceres-www",
+  "type": "module",
+  "description": "Site du CERES (Sorbonne Université)",
   "author": "Thomas Bottini",
-  "keywords": [
-    "gatsby"
-  ],
+  "engines": {
+    "node": ">=22.23.4"
+  },
   "scripts": {
-    "develop": "gatsby develop",
-    "start": "gatsby develop",
-    "build": "gatsby build",
-    "serve": "gatsby serve",
-    "clean": "gatsby clean"
+    "dev": "npm run prebuild && astro dev",
+    "start": "npm run dev",
+    "prebuild": "node scripts/copy-content-files.mjs",
+    "build": "astro build",
+    "preview": "astro preview",
+    "check": "astro check"
   },
   "dependencies": {
-    "@emotion/react": "^11.10.4",
-    "@emotion/styled": "^11.10.4",
-    "bootstrap": "^5.3.3",
-    "csv-parser": "^3.0.0",
-    "gatsby": "^5.13.7",
-    "gatsby-plugin-emotion": "^8.13.1",
-    "gatsby-plugin-image": "^3.13.1",
-    "gatsby-plugin-manifest": "^5.13.1",
-    "gatsby-plugin-sharp": "^5.13.1",
-    "gatsby-plugin-sitemap": "^6.13.1",
-    "gatsby-remark-autolink-headers": "^6.13.1",
-    "gatsby-remark-copy-linked-files": "^6.13.2",
-    "gatsby-remark-images": "^7.13.2",
-    "gatsby-remark-prismjs": "^7.13.2",
-    "gatsby-remark-responsive-iframe": "^6.13.2",
-    "gatsby-remark-smartypants": "^6.13.1",
-    "gatsby-source-filesystem": "^5.13.1",
-    "gatsby-transformer-remark": "^6.13.1",
-    "gatsby-transformer-sharp": "^5.13.1",
-    "lodash": "^4.17.21",
-    "prismjs": "^1.29.0",
-    "react": "^18.2.0",
-    "react-calendar": "^4.0.0",
-    "react-dom": "^18.2.0",
-    "source-map-generator": "^0.8.0"
+    "@astrojs/markdown-remark": "^7.3.10",
+    "@astrojs/react": "^7.1.9",
+    "@astrojs/sitemap": "^3.7.6",
+    "astro": "^7.4.13",
+    "bootstrap": "^5.3.9",
+    "csv-parse": "^7.0.3",
+    "react": "^19.3.1",
+    "react-calendar": "^6.0.1",
+    "react-dom": "^19.3.1",
+    "rehype-autolink-headings": "^7.1.0"
   },
   "devDependencies": {
-    "ajv": "^7.2.4"
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0"
   }
 }

@@ -1,0 +1,58 @@
+---
+// Pages article : /<uuid>, /<prettyName> et /<prettyname> (remplace templates/blog-post.jsx).
+import { render } from 'astro:content'
+import BaseLayout from '../layouts/BaseLayout.astro'
+import Toc from '../components/Toc.astro'
+import { articleRoutes, formatDate, getPosts, type Post } from '../lib/content'
+import { authorNames, getSections } from '../lib/site'
+
+export async function getStaticPaths() {
+  const reserved = [...getSections().map((s) => s.name), '404', 'files', 'outils']
+  const routes = articleRoutes(await getPosts(), reserved)
+  return [...routes].map(([slug, post]) => ({ params: { slug }, props: { post } }))
+}
+
+const { post } = Astro.props as { post: Post }
+const { author, tags, abstract, sound } = post.entry.data
+const { Content, headings } = await render(post.entry)
+const date = formatDate(post.date)
+const authors = authorNames(author)
+---
+<BaseLayout title={post.title} description={abstract}>
+  <link slot="head" rel="canonical" href={new URL(post.url, Astro.site)} />
+  <main>
+    {headings.length > 0 && (
+      <div id="toc-container">
+        <Toc headings={headings} />
+      </div>
+    )}
+    <header id="article-header">
+      <div class="overlay">
+        <h1>{post.title}</h1>
+        {authors && date && <span id="article-meta">Publié par {authors} le {date}</span>}
+        <button class="button print" type="button" onclick="window.print()">&darr; Enregistrer au format pdf</button>
+        {tags.length > 0 && (
+          <div id="tags-container">
+            {tags.map((t) => <a class="tag" href={`/?tags=${encodeURIComponent(t)}`}>{t}</a>)}
+          </div>
+        )}
+      </div>
+    </header>
+    <div id="article-container">
+      <article id="article">
+        {abstract && <aside><p>{abstract}</p></aside>}
+        {sound && (
+          <audio controls>
+            <source src={sound} type="audio/wav" />
+          </audio>
+        )}
+        <section><Content /></section>
+      </article>
+    </div>
+  </main>
+</BaseLayout>
+
+<script>
+  import { randomRotate } from '../lib/random-rotate'
+  randomRotate()
+</script>

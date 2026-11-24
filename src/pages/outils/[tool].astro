@@ -1,0 +1,84 @@
+---
+// Fiches outils tirées de src/data/_outils/outils_numeriques.csv (remplace templates/tool.jsx).
+// Les champs logo, ressources, outils comparables et commentaire sont encore des
+// valeurs d'exemple, comme dans la version Gatsby.
+import { getCollection, type CollectionEntry } from 'astro:content'
+import BaseLayout from '../../layouts/BaseLayout.astro'
+
+export async function getStaticPaths() {
+  return (await getCollection('outils')).map((tool) => ({ params: { tool: tool.id }, props: { tool } }))
+}
+
+const { tool } = Astro.props as { tool: CollectionEntry<'outils'> }
+const { nom, description, donnees, difficulte, source, fonctions, phases } = tool.data
+const split = (s: string) => s.split(';').filter(Boolean)
+
+const commentaire = 'Un texte un peu descriptif qui permet de faire certaines remarques utiles dans la zone dédiée'
+const logo = 'https://upload.wikimedia.org/wikipedia/commons/7/70/TXM-logo.png'
+const ressources = ['[Doc Officielle](https://txm.gitpages.huma-num.fr/textometrie/)', 'www.google.com'].map((el) => {
+  const m = el.match(/^\[(.*)\]\((.*)\)$/)
+  return m ? { name: m[1], link: m[2] } : { name: el, link: el }
+})
+const similar = ['iramuteq', 'gargantext']
+---
+<BaseLayout title={nom} description={description}>
+  <div class="container" style="height: 55vh">
+    <div class="row" style="height: 100%">
+      <div class="col-md-9" id="mainContent">
+        <div class="d-flex justify-content-between align-items-center pt-2" id="toolHeader">
+          <div class="d-flex align-items-center">
+            <img src={logo} alt="" style="width: 75px; margin-right: 1.7em" />
+            <h1>{nom}</h1>
+          </div>
+          <a href={source}>Installation</a>
+        </div>
+        <div class="row p-3 border-bottom border-top border-secondary" id="description">
+          {description}
+          Lorem ipsum et je fais un texte long dont on se fout complètemetn du contenu mais juste pour rajouter des infos qui ne seront pas justifiées.
+          Et encore d'ailleurs, il m'en faut toujours plus, PLUS, PLUUUUUUUUUUUUUUS.
+        </div>
+        <div class="row p-3" id="tags">
+          <div class="col d-flex flex-column">
+            <span>Fonctions</span>
+            {split(fonctions).map((f) => <a class="small-tag mt-2">{f}</a>)}
+          </div>
+          <div class="col d-flex-column">
+            <span>Etapes</span>
+            {split(phases).map((p) => <a class="small-tag phases mt-2">{p}</a>)}
+          </div>
+          <div class="col d-flex-column">
+            <span>Données</span>
+            {split(donnees).map((d) => <a class="small-tag data mt-2">{d}</a>)}
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3 d-flex flex-column border-start border-secondary justify-content-between" id="additionalInfos">
+        <div class="d-flex flex-column">
+          <span class="fw-bolder">Difficulté d'installation:</span>
+          Facile
+        </div>
+        <div class="d-flex flex-column">
+          <span class="fw-bolder">Difficulté d'utilisation:</span>
+          {difficulte}
+        </div>
+        <div class="d-flex flex-column">
+          <span class="fw-bolder">Ressources:</span>
+          {ressources.map((r) => <a href={r.link}>{r.name}</a>)}
+        </div>
+        <div class="d-flex flex-column">
+          <span class="fw-bolder">Outils comparables:</span>
+          {similar.map((el) => <a href={`/outils/${el}`} class="mt-1">{el}</a>)}
+        </div>
+        <div class="d-flex flex-column">
+          <span class="fw-bolder">Commentaire:</span>
+          {commentaire}
+        </div>
+      </div>
+    </div>
+  </div>
+</BaseLayout>
+
+<script>
+  import { randomRotate } from '../../lib/random-rotate'
+  randomRotate()
+</script>

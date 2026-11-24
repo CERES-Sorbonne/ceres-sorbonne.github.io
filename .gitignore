@@ -1,5 +1,8 @@
 node_modules/
-.cache/
-public
-package-lock.json
-src/data/
+dist/
+.astro/
+# contenu (clone de ceres-www-content, ou lien symbolique)
+src/data
+# fichiers liés copiés par scripts/copy-content-files.mjs
+public/files/
+.DS_Store

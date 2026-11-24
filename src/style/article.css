@@ -8,7 +8,7 @@
 
 
 #article-header{
-    background-image: url("/static/ceres-dither-1000-serpentine-a59d6fe6968543d70168ef4ad3ea84f3.png");
+    background-image: url("../images/ceres-dither-1000-serpentine.png");
     background-repeat: no-repeat;
     background-size: cover;
     background-position-x: center;
@@ -211,9 +211,9 @@ img[alt="verysmall"] {
 
 /* Notes de bas de page */
 
-a.footnote-ref,
-a.footnote-backref:after,
-a.footnote-backref {
+a[data-footnote-ref],
+a[data-footnote-backref]:after,
+a[data-footnote-backref] {
     font-weight: 500;
     padding: 0.15rem;
     margin: 0.1rem;
@@ -227,38 +227,39 @@ sup {
     vertical-align: top;
 }
 
-a.footnote-ref {
+a[data-footnote-ref] {
     position: relative;
     font-size: 0.8rem;
 }
 
-a.footnote-backref {
+a[data-footnote-backref] {
     visibility: hidden;
     display: inline-block;
     font-size: 0.0001rem;
 }
 
-a.footnote-backref:after {
+a[data-footnote-backref]:after {
     font-size: 0.8rem;
     content: "↑";
     visibility: visible;
     font-family: "Inter";
 }
 
-a.footnote-ref:hover,
-a.footnote-backref:hover:after {
+a[data-footnote-ref]:hover,
+a[data-footnote-backref]:hover:after {
     background-color: var(--hovered-background);
 }
 
 /* Section de notes de bas de page, voir la mise en forme du H2 */
 
-.footnotes hr {
-    display: none;
+/* Astro (remark-gfm) produit un titre « Notes » (#footnote-label) à la place du hr + ::before de Gatsby */
+.footnotes #footnote-label {
+    font-size: inherit;
 }
 
-.footnotes::before {
-    content: "Notes";
-    display: block;
+/* Iframes intégrées dans les articles (remplace gatsby-remark-responsive-iframe) */
+#article iframe {
+    max-width: 100%;
 }
 
 details{
